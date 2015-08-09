@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Pri0ri7y Map Viewer</title>
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">     
+    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+    <link href="css/styles.css" rel="stylesheet">
+
+</head>
+<body>
+    
+    <!-- begin template -->
+    <div class="navbar navbar-custom navbar-fixed-top">
+        <div class="navbar-header">
+            <a class="navbar-brand" target="_blank" href="https://www.annauniv.edu/">
+                <img style="max-width: 100px;margin-top: -22px;margin-left: -32px;padding:5px 2px 2px 2px;" class=".img-responsive"
+                    src="assets/images/CEG_main_logo.png"/>
+            </a>
+            <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span
+                class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </a>
+        </div>
+        <div class="navbar-collapse collapse"> <!--   -->
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html" title="Home"><i class ="fa fa-home fa-2x"></i></a></li> 
+                <li class="active"><a href="#" title="Geolocation" onclick="app.Geolocation._GetLatLong(false);"><i class ="fa fa-map-marker fa-2x"></i></a></li> 
+                <li class="active"><a href="#" title="Clear Graphics on Map" onclick="app.CommonUtils._ClearOverlays();" style="padding-right:100px;"><i class ="fa fa-map-o fa-2x"></i></a></li> 
+                <li class="active">
+                  <a target="_blank" href="https://github.com/Rajprabhu14/Rajprabhu14.github.io" title="Fork Me @ Github !">
+                      <i class ="fa fa-code-fork fa-2x"></i>              
+                  </a>
+                </li>               
+            </ul>             
+            <input id="freeSearch" type="text" class="form-control" placeholder="What are you searching for?">
+        </div>
+    </div>
+    <div class="container-fluid" id="main">
+        <div class="row">
+            <div class="col-xs-4" id="left">
+                <h2>
+                    Pri0ri7y Map Viewer</h2>
+                <form class="form" action="">
+                <div class="panel-group" id="PanelGroup">
+
+                    <!-- 1.0  Nearby Search Starts -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#PanelGroup" href="#item1"  style = "font-family: cursive;">Nearby Search</a>
+                            </h4>
+                        </div>
+                        <div id="item1" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label for="searchLatitude" style="padding-left: 12px;font-family: cursive;">
+                                        Latitude
+                                    </label>
+                                    <input class="form-control" id="searchLatitude" type="text" placeholder="Ex: 13.00"
+                                        style="width: 80%; margin-left: 12px;" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="searchLongitude" style="padding-left: 12px;font-family: cursive;">
+                                        Longitude
+                                    </label>
+                                    <input class="form-control" id="searchLongitude" type="text" placeholder="Ex: 80.27"
+                                        style="width: 80%; margin-left: 12px;" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="searchCategory" style="padding-left: 12px;font-family: cursive;">
+                                        Category</label>
+                                    <select class="form-control" id="searchCategory" style="width: 80%; margin-left: 12px;">
+                                        <option value="ATM">ATM</option>
+                                        <option value="Bank">Bank</option>
+                                        <option value="Clinic">Clinic</option>
+                                        <option value="Hospital">Hospital</option>
+                                        <option value="Restaurant">Restaurant</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="searchRadius" style="padding-left: 12px;font-family: cursive;">
+                                        Radius</label>
+                                    <input class="form-control" id="searchRadius" type="text" placeholder="Radial distance in kilometres. (Max 3km)"
+                                        style="width: 80%; margin-left: 12px;" />
+                                </div>
+                                <div class="form-group">
+                                    <center>
+                                        <button type="button" id="searchButton" class="btn btn-primary">
+                                            Search</button></center>
+                                </div>
+                                <br />
+                                <div>
+                                    <center>
+                                        <div id="searchErrorMessageDiv" style="color: red; font-weight: 700; font-family: cursive;">
+                                        </div>
+                                    </center>
+                                </div>
+                                <div id="DirectionsPanel"></div>
+                            </div>
+                        </div>
+                    </div><hr />
+                    <!-- 1.0  Nearby Search Ends // -->
+
+
+
+                </div>
+                </form>
+            </div>
+            <div id="map-canvas" class="col-xs-8">
+            </div>
+        </div>
+    </div>
+    <!-- end template -->
+    <!-- script references -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="js/library/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/library/JSLINQ.js" type="text/javascript"></script>
+    <script src="js/library/mordernizer.js" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.20&key=AIzaSyAbqDrb5LmdotJWkZGHT5o9qQs7QkMxXCs&libraries=geometry,places"></script>
+    <script src="js/base.js"></script>
+    <script src="js/commonUtils.js" type="text/javascript"></script>
+    <script src="js/search.js"></script>
+    <script src="js/geolocation.js" type="text/javascript"></script>
+</body>
+</html>
