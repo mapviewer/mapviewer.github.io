@@ -39,14 +39,6 @@ app.Geolocation.successHandler = function (position) {
     
 }
 
-var marker = new google.maps.Marker({
-    position: position,
-    title:"Hello World!"
-});
-
-// To add the marker to the map, call setMap();
-marker.setMap(map-canvas);
-
 
 // 1.3 lat/long -> error handler
 app.Geolocation.errorHandler = function (err) {
